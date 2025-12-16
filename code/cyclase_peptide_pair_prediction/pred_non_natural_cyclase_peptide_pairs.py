@@ -33,7 +33,7 @@ class CrossAttention(nn.Module):
         scaled_attn_scores = attn_scores / math.sqrt(query.size(-1))
         
         if attn_mask is not None:
-            attn_scores = attn_scores.masked_fill(attn_mask == 0, float('-inf'))
+            scaled_attn_scores = scaled_attn_scores.masked_fill(attn_mask == 0, float('-inf'))
         
         attn_weights = F.softmax(scaled_attn_scores, dim=-1)
         
